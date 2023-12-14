@@ -1,0 +1,38 @@
+<!-- @format -->
+
+{% extends "base.html" %} {% block title %}StreamTato | Watch{% endblock %} {%
+block content %}
+<div class="container-fluid mt-4">
+	<div class="row justify-content-center">
+		{% for episode in episodes %}
+		<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+			<div class="card">
+				<img
+					src="{{ url_for('static', filename=episode.image_url) }}"
+					class="card-img-top"
+					alt="{{ url_for('static', filename=episode.image_url) }}"
+				/>
+				<div class="card-body">
+					<h5 class="card-title">Episode {{ episode.episode_number }}</h5>
+					<h6 class="card-subtitle mb-2 text-muted">{{episode.show_name}}</h6>
+					<p class="card-text">{{ episode.name }}</p>
+					<form
+						action="/stream/{{ episode.id }}"
+						method="POST"
+						id="id"
+					>
+						<button
+							type="submit"
+							class="btn btn-primary"
+						>
+							Watch Now
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

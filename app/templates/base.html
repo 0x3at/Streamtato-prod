@@ -1,0 +1,150 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<title>{% block title %}StreamTato{% endblock %}</title>
+
+		<!-- Bootstrap CSS -->
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		/>
+
+		<!-- Boxicons CSS -->
+		<link
+			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com"
+		/>
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;1,300&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- Custom Styles -->
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles/style.css') }}"
+		/>
+	</head>
+	<body>
+		<nav>
+			<div class="logo">
+				<img
+					src="{{ url_for('static', filename='styles/images/logo.jpg') }}"
+					alt="Logo"
+				/>
+				<a href="/shows">StreamTato</a>
+			</div>
+			<ul class="sidebar">
+				{% if not current_user.is_authenticated %}
+				<li onclick="hideSidebar()">
+					<a href="#"><i class="bx bx-menu"></i></a>
+				</li>
+				{% else %}
+				<li onclick="showSidebar()">
+					<a href="#"><i class="bx bx-menu-alt-right"></i></a>
+				</li>
+				{% endif %}
+			</ul>
+
+			<ul>
+				{% if not current_user.is_authenticated %}
+				<li>
+					<a
+						class="hideOnMobile"
+						href="/login"
+						id="login"
+						>Login</a
+					>
+				</li>
+				<li>
+					<a
+						class="hideOnMobile"
+						href="/register"
+						>Register</a
+					>
+				</li>
+				<li>
+					<a
+						class="hideOnMobile"
+						href="/about"
+						id="about"
+						>About</a
+					>
+				</li>
+				{% else %}
+				<li>
+					<a
+						class="hideOnMobile"
+						href="/shows"
+						id="home"
+						>Home</a
+					>
+				</li>
+				<li>
+					<a
+						class="hideOnMobile"
+						href="/logout"
+						id="logout"
+						>Logout</a
+					>
+				</li>
+				{% endif %}
+			</ul>
+		</nav>
+
+		{% with messages = get_flashed_messages(with_categories=true) %} {% if
+		messages %} {% for category, message in messages %} {% if category ==
+		"error" %}
+		<div
+			class="alert alert-danger alert-dismissible fade show"
+			role="alert"
+		>
+			{{ message }}
+			<button
+				type="button"
+				class="close"
+				data-dismiss="alert"
+				aria-label="Close"
+			>
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		{% else %}
+		<div
+			class="alert alert-success alert-dismissible fade show"
+			role="alert"
+		>
+			{{ message }}
+			<button
+				type="button"
+				class="close"
+				data-dismiss="alert"
+				aria-label="Close"
+			>
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		{% endif %} {% endfor %} {% endif %} {% endwith %}
+		<script src="https://unpkg.com/@popperjs/core@2"></script>
+		<script src="{{ url_for('static', filename='index.js') }}"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		{%block content%}{%endblock%}
+	</body>
+</html>

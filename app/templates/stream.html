@@ -1,0 +1,52 @@
+<!-- @format -->
+
+{% extends "base.html" %} {% block title %}StreamTato | Stream{% endblock %} {%
+block content %}
+<div class="container">
+	<h1>Episode {{video.episode_number}}</h1>
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+			<video
+				id="videoPlayer"
+				width="100%"
+				controls
+			>
+				<source
+					src="{{ video.video_url }}"
+					type="video/mp4"
+				/>
+				Your browser does not support the video tag.
+			</video>
+			<div style="padding: 20px">
+				<form
+					action="/stream/{{ video.id - 1 }}"
+					method="POST"
+					id="id"
+				>
+					<button
+						style="position: absolute; bottom: 0; left: 0"
+						id="getButton1"
+						class="btn btn-primary mt-3"
+					>
+						Previous Episode
+					</button>
+				</form>
+				<form
+					action="/stream/{{ video.id + 1}}"
+					method="POST"
+					id="id"
+				>
+					<button
+						style="position: absolute; bottom: 0; right: 0"
+						action
+						id="getButton2"
+						class="btn btn-primary mt-3 ml-2"
+					>
+						Next Episode
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}
